@@ -139,6 +139,11 @@ struct custom_operations int128_ops = {
 };
 
 CAMLprim value
+#ifdef __GNUC__
+#ifndef __clang__
+__attribute__((optimize("O0"))) /* GCC 9 issue avoidance, with Clang guards */
+#endif
+#endif
 copy_int128(int128 i)
 {
   CAMLparam0();
